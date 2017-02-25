@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; Charset=utf-8">
+        <title>图片延时加载</title>
+       <style type="text/css">
+           *{margin:0px; padding:0px; list-style:none; font:normal 14px Arial;}
+           .head{width:1200px; height:220px; margin:10px auto; overflow:hidden; background-image:url(img/headbground.jpg); text-align:center;}
+           .head .headFont{font-size:32px; line-height:32px; font-family:"微软雅黑"; margin-top:85px;}
+
+           .main{width:1200px;  margin:20px auto; overflow:hidden;}
+           #wall span{width:386px; height:257px; float:left; border:1px solid #ccc; overflow:hidden; margin-bottom:30px; display:inline;}
+           #wall .centerSpanStyle{margin:0px 18px 30px 18px;}
+       </style>
+
+       <script type="text/javascript">
+           var imgs = [  "img/img1.jpg",
+                         "img/img2.jpg",
+                         "img/img3.jpg",
+                         "img/img4.jpg",
+                         "img/img5.jpg",
+                         "img/img6.jpg",
+                         "img/img7.jpg",
+                         "img/img8.jpg",
+                         "img/img9.jpg",
+                         "img/img10.jpg",
+                         "img/img11.jpg",
+                         "img/img12.jpg",
+                         "img/img13.jpg",
+                         "img/img14.jpg",
+                         "img/img15.jpg",
+                         "img/img16.jpg",
+                         "img/img17.jpg",
+                         "img/img18.jpg",
+                         "img/img19.jpg",
+                         "img/img20.jpg",
+                         "img/img21.jpg",
+                         "img/img22.jpg",
+                         "img/img23.jpg",
+                         "img/img24.jpg"];
+           var EventUtil = {
+               addHandler: function(element, type, handler){
+                 if(element.addEventListener){
+                     element.addEventListener(type, handler,false);
+                 }else if(element.attachEvent){
+                     element.attachEvent("on"+type, handler);
+                 }else{
+                     element["on" + type] = handler;
+                 }
+               },
+               getEvent: function(event){
+                   return event ? event : window.event;
+               },
+               getTarget: function(event){
+                   return event.target || event.srcElement;
+               },
+               preventDefault: function(event){
+                   if(event.preventDefault){
+                       return event.preventDefault();
+                   }else{
+                       return event.returnValue = false;
+                   }
+               },
+               stopPropagation: function(event){
+                   if(event.stopPropagation){
+                       event.stopPropagation();
+                   }else{
+                       event.cancelBubble = true;
+                   }
+               }
+           };
+
+           //获取经过计算的css样式
+            function getCss(element,attr){
+               if(window.getComputedStyle){
+                   return window.getComputedStyle(element, false)[attr];
+               }else{
+                   return element.currentStyle[attr];
+               }
+            }
+
+           //获取当前元素在浏览器中的位置(就是元素的偏移量)
+            function getPosition(element){
+              var acturalLeft = element.offsetLeft;
+              var acturalTop = element.offsetTop;
+              var currentParent = element.offsetParent;
+              while(currentParent != null){
+                  acturalLeft += currentParent.offsetLeft;
+                  acturalTop += currentParent.offsetTop;
+                  currentParent = currentParent.offsetParent;
+              }
+              /*var obj = {};
+                  obj.x = acturalLeft;
+                  obj.y = acturalTop;*/ //把这个注释掉是因为下面直接定义一个匿名对象的方式更好。
+
+              return {x: acturalLeft, y: acturalTop };
+           }
+
+           function lazyImage(){
+               var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+               var clientTop = document.documentElement.clientHeight || document.body.clientHeight;
+               var images = document.getElementById("wall").getElementsByTagName("img");
+               for(var i=0; i<images.length;i++){
+                   if(getPosition(images[i]).y + parseInt(getCss(images[i], "height")) < (scrollTop + clientTop)){
+                       images[i].src = imgs[i];
+                   }
+               }
+           }
+           window.onload = function(){
+               EventUtil.addHandler(window, "scroll", function(){
+                   lazyImage();
+               });
+           }
+       </script>
+    </head>
+
+    <body>
+        <div class="head">
+            <p class="headFont">图片延时加载</p>
+        </div>
+        
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <div class="main">
+            <div id="wall">
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+
+                <span><img src="img/lazyImg.jpg"></span>
+                <span class="centerSpanStyle"><img src="img/lazyImg.jpg"></span>
+                <span><img src="img/lazyImg.jpg"></span>
+            </div>
+        </div>
+
+    </body>
+</html>
