@@ -1,3 +1,4 @@
+# 原文链接： http://natumsol.github.io/2014/08/24/Regular-expression-in-jquery/
 # jQuery源码里的正则表达式详解（一）
 #### 最近在读Jquery的源码，遇到了一些正则表达式，因为之前接触的很少，所以jQuery里面复杂的正则给我造成了不小的困扰。经过查资料+实验，算是搞清楚了，特罗列出来，总结一下。
 
