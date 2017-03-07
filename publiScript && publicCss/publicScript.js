@@ -224,6 +224,7 @@ function getPosition(ele){
 }
 /**获取元素的偏移量**/
 
+
 /**获取元素的样式**/
 function getCss(ele, attr){
     if(window.getComputedStyle){
@@ -233,3 +234,26 @@ function getCss(ele, attr){
     }
 }
 /**获取元素的样式**/
+
+
+/**数组去重 : 实现思路: 获取没重复的最右一个值放入到数组(检测到有重复值时终止当前循环同时进入到顶层循环的下一轮判断)**/
+function unique(arr){ // unique /juː'niːk/ 唯一的
+    var saveArr = [];
+    var len = arr.length;
+    for(var i= 0; i < len; i++){
+        for(var j= i+1; j< len; j++){
+            if(arr[i] === arr[j]){
+                j = ++i;
+            }
+        }
+        saveArr.push(arr[i]);
+    }
+    return saveArr
+}
+
+
+var theArray = [1, 1, 4, 5, 6, 6, 8, 7, 3, 7, 9, 11, 10, 11, 15, 17, 15, 31];
+var uniqueArr = unique(theArray);
+for(var i=0; i < uniqueArr.length; i++){
+    console.log(uniqueArr[i]);
+}
