@@ -66,26 +66,27 @@
 
 --------------------------------------------------------------
 ## 2.  <br/> js高级 5.5.5函数属性和方法 apply()和call(): 这两个方法的用途是在[特定的作用域中调用函数]，实际上等于设置函数体内this对象的值。
-### 1.apply()方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。其中，第二个参数可以是Array的实例，也可以是arguments对象。
+  - (1.)apply()方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。其中，第二个参数可以是Array的实例，也可以是arguments对象。
 
-       function sum(num1, num2){
-           return num1 + num2;
-       }
-       function callSum1(num1, num2){
-           return sum.apply(sum, arguments); //传入arguments对象
-       }
-       function callSum2(num1, num2){
-           return sum.apply(sum, [num1, num2]); //传入数组
-       }
-       alert(callSum1(10, 10)); //20
-       alert(callSum2(10, 10)); //20   
+       function sum(num1, num2){  <br/>
+           return num1 + num2;   <br/>
+       } <br/>
+       function callSum1(num1, num2){  <br/>
+           return sum.apply(sum, arguments); //传入arguments对象    <br/>
+       }  <br/>
+       function callSum2(num1, num2){ <br/>
+           return sum.apply(sum, [num1, num2]); //传入数组  <br/>
+       }  <br/>
+       alert(callSum1(10, 10)); //20  <br/>
+       alert(callSum2(10, 10)); //20  <br/>   
 
-### 2. call()方法也是接收两个参数: 第一个参数是this值没有变化，变化的是其余参数都是直接传递给函数。换句话说就是在使用call()方法时，传递给函数的参数必须诸葛列举出来。
+  - ( 2.) call()方法也是接收两个参数: 第一个参数是this值没有变化，变化的是其余参数都是直接传递给函数。换句话说就是在使用call()方法时，传递给函数的参数必须诸葛列举出来。
 
--------------------------------------------------------------
 
 ## 3. typeof 和 instanceof 操作符:
   - (1). typeof操作符检测变量是哪种基本数据类型: typeof操作符是确定一个变量是字符串，数值，布尔值，还是 undefined 的最佳工具。 <br/> 如果变量的值是一个对象或null，则typeof操作符会返回 "object"。 <br/>
   - (2). instanceof操作符检测变量是哪种引用类型 
   
 ## 4. 第6章: 6.2.3  (6).原型中所有属性被实例共享
+
+## 5. 7.2 闭包是指有权访问另一个函数作用域中的变量的函数。
