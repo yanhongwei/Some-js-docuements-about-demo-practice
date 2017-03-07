@@ -12,9 +12,7 @@
 ### (7.) 单体内置对象 --> 单体内置对象包含: Global对象，Math对象  <br/>
 
 ### 如上所述，[对象是某个特定引用类型的实例]。新对象是使用new操作符后跟一个构造函数来创建的。构造函数本身就是一个函数，只不过该函数式处于创建新对象的目的而定义的。
-       <br/>
-       var person = new Ojbect(); 
-       <br/>
+     var person = new Ojbect(); 
 ### 这行代码创建了 Object引用类型的一个新实例，然后把该实例保存在了变量person中。使用的构造函数是Object,它只为新对象定义了默认的属性和方法。
 
 ### 创建[Object类型实例]的方式有两种: /也可以说成[创建Object对象]的两种方式 
@@ -38,12 +36,12 @@
 ### 6.1.1 属性类型 
 #### ECMA-262第5版在定义只有内部采用的特性(attribute)时，描述了属性(property)的各种特性。ECMA-262定义这些特性是为了实现js引擎用的，因为在js中不能直接访问他们。为了表示特性是内部值，该规范把他们放在了两对方括号中，例如[[Enumerable]]。
 #### ECMAScript中有两种属性: 数据属性和访问器属性
-#### (1.) 数据属性: 数据属性包含一个数据值的位置。在这个位置可以读取和写入值。数据属性有4个描述其行为的特性 : A: [[Configurable]]; B: [[Enumerable]]; C: [[Writable]]; D: [[Value]]; <br/> 对于直接在对象上定义的属性，他们的 [[Configurable]]; [[Enumerable]]和[[Writable]]特性都被设置为true,而[[Value]]特性被设置为指定的值。
+#### (1.) 数据属性: <br/> 数据属性包含一个数据值的位置。在这个位置可以读取和写入值。数据属性有4个描述其行为的特性 : A: [[Configurable]]; B: [[Enumerable]]; C: [[Writable]]; D: [[Value]]; <br/> 对于直接在对象上定义的属性，他们的 [[Configurable]]; [[Enumerable]]和[[Writable]]特性都被设置为true,而[[Value]]特性被设置为指定的值。
    例如:  var person = {name: "Nicholas"}
 #### 要修改属性默认的特性，必须使用ECMAScript5的 Object.defineProperty()方法。这个方法接受三个参数: [属性所在的对象],[属性的名字]和[一个描述符对象]。其中，描述符(descriptor)对象的属性必须是: configurable，enumerable，writable 和 value。设置其中的一或多个值，可以修改对应的特性值。
 #### 在调用Object.defineProperty()方法时，如果不指定，configurable，enumerable和 writable特性的默认值都是false。多数情况下，可能都没有必要利用Object.defineProperty()方法提供的这些高级功能。
 
-#### (2.) 访问器属性 : 访问器属性不包含数据值:他们包含以对gette和setter函数(不过这连个函数都不是必需的)。在读取访问器属性时，会调用getter函数，这个函数负责返回有效的值；在写入访问器属性时，会调用setter函数并传入新值，这个函数负责决定如何处理数据。访问器属性有下面四个特性。<br/> A: [[Configurable]]; B: [[Enumerable]]; C: [[Get]]; D: [[Set]]; <br/> 访问器属性不能直接定义，必须使用 Object.defineProperty()来定义。
+#### (2.) 访问器属性 : <br/> 访问器属性不包含数据值:他们包含以对gette和setter函数(不过这连个函数都不是必需的)。在读取访问器属性时，会调用getter函数，这个函数负责返回有效的值；在写入访问器属性时，会调用setter函数并传入新值，这个函数负责决定如何处理数据。访问器属性有下面四个特性。<br/> A: [[Configurable]]; B: [[Enumerable]]; C: [[Get]]; D: [[Set]]; <br/> 访问器属性不能直接定义，必须使用 Object.defineProperty()来定义。
 
        var book = {
           _year: 2004,
@@ -67,7 +65,7 @@
 
 
 --------------------------------------------------------------
-## 2. js高级 5.5.5函数属性和方法 apply()和call(): 这两个方法的用途是在[特定的作用域中调用函数]，实际上等于设置函数体内this对象的值。
+## 2.  <br/> js高级 5.5.5函数属性和方法 apply()和call(): 这两个方法的用途是在[特定的作用域中调用函数]，实际上等于设置函数体内this对象的值。
 ### 1.apply()方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。其中，第二个参数可以是Array的实例，也可以是arguments对象。
 
        function sum(num1, num2){
@@ -81,8 +79,11 @@
        }
        alert(callSum1(10, 10)); //20
        alert(callSum2(10, 10)); //20   
-       总结: 在我看来apply()方法和call()方法，实际上就是自己调自己，函数的实例用sum.apply()方法调用，
-       但是apply方法中第一个是参数是函数自己(也可以写this)，第二个参数是外围函数传进来的参数     
 
 ### 2. call()方法也是接收两个参数: 第一个参数是this值没有变化，变化的是其余参数都是直接传递给函数。换句话说就是在使用call()方法时，传递给函数的参数必须诸葛列举出来。
 
+-------------------------------------------------------------
+
+##3. typeof 和 instanceof 操作符:
+  - (1). typeof操作符检测变量是哪种基本数据类型: typeof操作符是确定一个变量是字符串，数值，布尔值，还是 undefined 的最佳工具。 <br/> 如果变量的值是一个对象或null，则typeof操作符会返回 "object"。 <br/>
+  - (2). instanceof操作符检测变量是哪种引用类型 : 
