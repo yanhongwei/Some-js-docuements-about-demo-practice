@@ -43,24 +43,26 @@
   ##### 在调用Object.defineProperty()方法时，如果不指定，configurable，enumerable和 writable特性的默认值都是false。多数情况下，可能都没有必要利用Object.defineProperty()方法提供的这些高级功能。
 
   ##### (2.) 访问器属性 : 访问器属性不包含数据值:他们包含以对gette和setter函数(不过这连个函数都不是必需的)。在读取访问器属性时，会调用getter函数，这个函数负责返回有效的值；在写入访问器属性时，会调用setter函数并传入新值，这个函数负责决定如何处理数据。访问器属性有下面四个特性。<br/> A: [[Configurable]]; B: [[Enumerable]]; C: [[Get]]; D: [[Set]]; <br/> 访问器属性不能直接定义，必须使用 Object.defineProperty()来定义。
-    var book = {
-       _year: 2004,
-        edition: 1
-    };
-    Object.defineProperty(book, "year", {
-        get: function(){
-          return this._year;
-        },
-        set: function(newValue){
-            if(newValue > 2004){
-                this._year = newValue;
-                this.edition = newValue - 2004;
+  
+        var book = {
+           _year: 2004,
+            edition: 1
+        };
+        Object.defineProperty(book, "year", {
+            get: function(){
+              return this._year;
+            },
+            set: function(newValue){
+                if(newValue > 2004){
+                    this._year = newValue;
+                    this.edition = newValue - 2004;
+                }
             }
-        }
-    });
-    
-    book.year = 2017;
-    console.log(book.edition);
+        });
+        
+        book.year = 2017;
+        console.log(book.edition);
+        
   ##### 以上代码创建了一个book对象，并给他定义两个默认的属性: _year和edition. [_year前面的下划线是一种常用的几号，用于表示只能通过对象方法访问的属性]。
   
 
