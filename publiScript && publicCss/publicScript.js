@@ -94,6 +94,14 @@ var EventUtil = {
 };
 
 
+/**函数绑定**/
+function bind(fn, context){
+    return function(){
+        return fn.apply(context, arguments);
+    }
+}
+
+
 /**通过id获取元素**/
 var getId = function(id) {
     //当id传进来的是字符串时调用getElementById方法返回id元素，如果不是字符串直接返回此参数
@@ -222,7 +230,6 @@ function getPosition(ele){
     }
     return {left: curEleLeft, top: curEleTop};
 }
-/**获取元素的偏移量**/
 
 
 /**获取元素的样式**/
@@ -233,7 +240,6 @@ function getCss(ele, attr){
         return ele.currentStyle[attr];
     }
 }
-/**获取元素的样式**/
 
 
 /**数组去重 : 实现思路: 获取没重复的最右一个值放入到数组(检测到有重复值时终止当前循环同时进入到顶层循环的下一轮判断)**/
@@ -250,10 +256,29 @@ function unique(arr){ // unique /juː'niːk/ 唯一的
     }
     return saveArr
 }
-
-
 var theArray = [1, 1, 4, 5, 6, 6, 8, 7, 3, 7, 9, 11, 10, 11, 15, 17, 15, 31];
 var uniqueArr = unique(theArray);
 for(var i=0; i < uniqueArr.length; i++){
     console.log(uniqueArr[i]);
+}
+
+/**数组去重方法2**/
+function unique2(){
+    var arr1 =[1,2,2,2,3,3,3,4,5,6],
+        arr2 = [];
+    for(var i = 0,len = arr1.length; i< len; i++){
+        if(arr2.indexOf(arr1[i]) < 0){
+            arr2.push(arr1[i]);
+        }
+    }
+    console.log(arr2); // 1,2,3,4,5,6
+}
+
+
+/**清除字符串前后的空格**/
+function trim(str){ // /trɪm/去除 修剪
+    if(str && typeof str === "string"){
+        // return str.replace(/\s+/g, ""); //去除所有空格
+        return str.replace(/^\s+|\s+$/g, "");  //去除两头空格
+    }
 }
