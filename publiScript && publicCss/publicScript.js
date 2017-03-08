@@ -94,12 +94,30 @@ var EventUtil = {
 };
 
 
-/**函数绑定**/
+/**函数绑定: 增加了函数柯里化的复杂函数绑定 **/
 function bind(fn, context){
-    return function(){
-        return fn.apply(context, arguments);
-    }
+    /* 对arguments对象使用 Array.prototype.slice() 方法可以将其转换为数组。
+     * 丢弃第一个参数，因为第一参数就是将要柯里化的函数。
+     * 丢弃第二个参数，是因为context上下文是传入的一个object对象*/
+   var args = Array.prototype.slice.call(arguments, 2);
+   return function(){
+       var innerArgs = Array.prototype.slice.call(arguments);
+       var finalArgs = args.concat(innerArgs);
+       return fn.apply(context, finalArgs);
+   }
 }
+/*使用bind()的方法
+var handler = {
+    message: "使用bind绑定函数方法示例",
+    clickEffect: function(event){
+        alert(this.message + ":" + event.type);
+    }
+};
+var btn = getClassName("myBtn");
+EventUtil.addHandler(btn, "click", bind(handler.clickEffect, handler));*/
+
+
+
 
 
 /**通过id获取元素**/
