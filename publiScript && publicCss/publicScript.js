@@ -94,7 +94,7 @@ var EventUtil = {
 };
 
 
-/**函数绑定: 增加了函数柯里化的复杂函数绑定 **/
+/**函数绑定-js高级: 增加了函数柯里化的复杂函数绑定 **/
 function bind(fn, context){
     /* 对arguments对象使用 Array.prototype.slice() 方法可以将其转换为数组。
      * 丢弃第一个参数，因为第一参数就是将要柯里化的函数。
@@ -116,6 +116,17 @@ var handler = {
 var btn = getClassName("myBtn");
 EventUtil.addHandler(btn, "click", bind(handler.clickEffect, handler));*/
 
+
+/**高级定时器-js高级-数组分块(array chunking)**/
+function chunk(arry, process, context){
+    setTimeout(function(){
+        var item = array.shift();
+        process.call(context, item);
+        if(array.length > 0){
+            setTimeout(arguments.callee, 100);
+        }
+    },100)
+}   //调用方法见 22.3.2-高级定时器-数组分块.html
 
 
 
