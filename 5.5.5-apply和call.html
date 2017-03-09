@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>5.5.5-apply和call方法</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //apply()和call(): 这两个方法的用途是在[特定的作用域中调用函数]，实际上等于设置函数体内this对象的值。
+        function sum(num1, num2){
+            return num1 + num2;
+        }
+        function callSum1(num1, num2){
+            //apply()方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。
+            // 其中，第二个参数可以是Array的实例，也可以是arguments对象。
+            return sum.apply(this, arguments); //此处的this值的就是cassSum1函数
+        }
+        function callSum2(num1, num2){
+            //call()方法也是接收两个参数: 第一个参数是this值没有变化，变化的是其余参数都是直接传递给函数。
+            return sum.apply(this, [num1, num2]); //传入数组
+        }
+        alert(callSum1(10, 10));
+        alert(callSum2(20, 20));
+    </script>
+</body>
+</html>
