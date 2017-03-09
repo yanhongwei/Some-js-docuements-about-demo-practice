@@ -72,10 +72,10 @@
            return num1 + num2;   <br/>
        } <br/>
        function callSum1(num1, num2){  <br/>
-           return sum.apply(sum, arguments); //传入arguments对象    <br/>
+           return sum.apply(this, arguments); //传入arguments对象    <br/>
        }  <br/>
        function callSum2(num1, num2){ <br/>
-           return sum.apply(sum, [num1, num2]); //传入数组  <br/>
+           return sum.apply(this, [num1, num2]); //传入数组  <br/>
        }  <br/>
        alert(callSum1(10, 10)); //20  <br/>
        alert(callSum2(10, 10)); //20  <br/>   
