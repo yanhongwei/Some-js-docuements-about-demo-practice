@@ -128,15 +128,20 @@
         <input type="button" class="theBut" value="函数绑定">
     </div>
     <script type="text/javascript">
+        /*函数柯里化(function currying): 函数柯里化的基本方法和函数绑定是一样的：使用一个闭包
+        * 返回一个函数。两者的区别在于，当函数调用时，返回的函数还需要设置一些传入的参数。*/
         function bind(fn, context){
-            return function(){
-                return fn.apply(context, arguments);
-            }
+           var args = Array.prototype.slice.call(arguments, 2);
+           return function(){
+               var innerArgs = Array.prototype.slice.call(arguments);
+               var finalArgs = args.concat(innerArgs);
+               return fn.apply(context, finalArgs);
+           }
         }
         var handler = {
-            message: "事件绑定",
+            message: "增加了函数柯里化的复杂函数绑定",
             handleClick: function(event){
-               alert(this.message);
+               alert(this.message + ":" + event.type);
             }
         };
         var btn = getClassName("theBut")[0];
