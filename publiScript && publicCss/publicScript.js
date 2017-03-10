@@ -93,6 +93,44 @@ var EventUtil = {
     } //取得字符编码
 };
 
+/**添加自定义事件**/
+function EventTarget() {
+    this.handlers = {}; //构造函数内定义一个this.handlers属性，并把一个空对对象赋值给此属性
+}
+EventTarget.prototype = {
+    constructor: EventTarget,
+    addHandler: function(type, handler){
+        if(typeof this.handlers[type] == "undefined"){
+            //如果this.handlers对象没有type属性，就创建此属性，然后把一个空数组赋值给它
+            this.handlers[type] = [];
+        }
+        //往this.handlers.type数组中推入一个项，但是此项实际上是一个函数
+        this.handlers[type].push(handler);
+    },
+    fire: function(event){
+        if(!event.target){
+            event.target = this;
+        }
+        if(this.handlers[event.type] instanceof Array){
+            var handlers = this.handlers[event.type];
+            for(var i=0, len=handlers.length; i< len; i++){
+                handlers[i](event);
+            }
+        }
+    },
+    removeHandler: function(type, handler){
+        if(this.handlers[type] instanceof Array){
+            var handlers = this.handlers[type];
+            for(var i=0, len=handlers.length; i< len; i++){
+                if(handlers[i] === handler){
+                    break;
+                }
+            }
+            handler.splice(i, 1); //移除事件就是利用数组的splice方法把此项从输入中移除
+        }
+    }
+};
+
 
 /**函数绑定-js高级: 增加了函数柯里化的复杂函数绑定 **/
 function bind(fn, context){
