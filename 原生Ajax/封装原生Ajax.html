@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>封装原生Ajax</title>
+</head>
+<body>
+    <script type="text/javascript">
+        //Ajax (Asynchronous JavaScript + XML)的简写
+        //Ajax技术的核心是XMLHttpRequest对象(简称XHR)，这是由微软首先引入的一个特性，其他浏览器提供商后来都提供了相同的实现。
+        function Ajax(type, url, sendData, success, failed){
+            // 创建ajax对象
+            var xhr = null;
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject('Microsoft.XMLHTTP')
+            }
+
+            var type = type.toUpperCase();
+            // 用于清除缓存
+            var random = Math.random();
+
+            if(typeof sendData == 'object'){
+                var str = '';
+                for(var key in sendData){
+                    str += key+'='+sendData[key]+'&';
+                }
+                sendData = str.replace(/&$/, '');
+            }
+
+            if(type == 'GET'){
+                if(sendData){
+                    xhr.open('GET', url + '?' + sendData, true);
+                } else {
+                    xhr.open('GET', url + '?t=' + random, true);
+                }
+                xhr.send();
+
+            } else if(type == 'POST'){
+                xhr.open('POST', url, true);
+                // 如果需要像 html 表单那样 POST 数据，请使用 setRequestHeader() 来添加 http 头。
+                xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhr.send(sendData);
+            }
+
+            // 处理返回数据
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState == 4){
+                    if(xhr.status == 200){
+                        success(xhr.responseText);
+                    } else {
+                        if(failed){
+                            failed(xhr.status);
+                        }
+                    }
+                }
+            }
+        }
+
+        // 测试调用
+        var sendData = {name:'asher',sex:'male'};
+        Ajax('get', 'data.json', sendData, function(data){
+            console.log(data);
+        }, function(error){
+            console.log(error);
+        });
+    </script>
+</body>
+</html>
