@@ -218,7 +218,6 @@
                 EventUtil.removeHandler(document, "mousemove", handleEvent);
                 EventUtil.removeHandler(document, "mouseup", handleEvent);
             };
-
             return dragdrop;
         }();
 
@@ -230,7 +229,7 @@
         });
         DragDrop.addHandler("drag", function(event){
             var status = getId("status");
-            status.innerHTML = "<br>拖拽" + event.target.id + "到 (" + event.x + "," + event.y + ")";
+            status.innerHTML += "<br>拖拽" + event.target.id + "到 (" + event.x + "," + event.y + ")";
         });
         DragDrop.addHandler("dragend", function(event){
             var status = getId("status");
