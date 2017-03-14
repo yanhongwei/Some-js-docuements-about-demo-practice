@@ -13,8 +13,9 @@ function randomString(length) {
         str += chars[Math.floor(Math.random() * chars.length)];
     }
     // return str;
+    console.log(str + ",");
 }
-console.log(str + ",");
+
 
 for(var i=0; i<100; i++){
     randomString(6);
