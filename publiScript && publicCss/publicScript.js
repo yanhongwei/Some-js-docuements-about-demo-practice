@@ -328,6 +328,7 @@ function unique(arr){ // unique /juː'niːk/ 唯一的
  console.log(uniqueArr[i]);
  }*/
 
+
 /**数组去重方法2**/
 /*function unique2(){
     var arr1 =[1,2,2,2,3,3,3,4,5,6],
