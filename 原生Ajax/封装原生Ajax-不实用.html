@@ -8,6 +8,10 @@
     <script type="text/javascript">
         //Ajax (Asynchronous JavaScript + XML)的简写
         //Ajax技术的核心是XMLHttpRequest对象(简称XHR)，这是由微软首先引入的一个特性，其他浏览器提供商后来都提供了相同的实现。
+
+        //综合来说这个封装并不实用，第一:如果没有提交数据到服务器的话，那就用不到函数中写的 if == "object", if == "get",if == "post"这些判断了。
+        //第二: 即使提交数据，也不可能把需要的数据在利用提前再转成对象类型。这个写法真是zz啊
+        //第三: 如果是form表单的数据提交，一般都需要提前序列化(serialize /'sɪrɪəlaɪz/ )才可以传到后台，序列化表单的js原生方法可以，jq的serialize()也可以。
         function Ajax(type, url, sendData, success, failed){
             // 创建ajax对象
             var xhr = null;
@@ -21,7 +25,7 @@
             // 用于清除缓存
             var random = Math.random();
 
-            if(typeof sendData == 'object'){
+            if(typeof sendData == 'object'){ //这里有问题，传进来的必须是一个对象。【页面中获取了值，在自己转换成对象也是够麻烦的啊】。
                 var str = '';
                 for(var key in sendData){
                     str += key+'='+sendData[key]+'&';
@@ -37,7 +41,7 @@
                 }
                 xhr.send();
 
-            } else if(type == 'POST'){
+            } else if(type == 'POST'){ //这里说的表单提交也有问题，表单提交之前一般都要序列化，要不自己写原生的序列化，要不然用jquery的serialize()方法进行序列化
                 xhr.open('POST', url, true);
                 // 如果需要像 html 表单那样 POST 数据，请使用 setRequestHeader() 来添加 http 头。
                 xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -65,6 +69,7 @@
         }, function(error){
             console.log(error);
         });
+
     </script>
 </body>
 </html>
