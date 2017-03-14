@@ -168,7 +168,6 @@ function chunk(arry, process, context){
 
 
 
-
 /**通过id获取元素**/
 var getId = function(id) {
     //当id传进来的是字符串时调用getElementById方法返回id元素，如果不是字符串直接返回此参数
@@ -323,14 +322,14 @@ function unique(arr){ // unique /juː'niːk/ 唯一的
     }
     return saveArr
 }
-var theArray = [1, 1, 4, 5, 6, 6, 8, 7, 3, 7, 9, 11, 10, 11, 15, 17, 15, 31];
-var uniqueArr = unique(theArray);
-for(var i=0; i < uniqueArr.length; i++){
-    console.log(uniqueArr[i]);
-}
+/*var theArray = [1, 1, 4, 5, 6, 6, 8, 7, 3, 7, 9, 11, 10, 11, 15, 17, 15, 31];
+ var uniqueArr = unique(theArray);
+ for(var i=0; i < uniqueArr.length; i++){
+ console.log(uniqueArr[i]);
+ }*/
 
 /**数组去重方法2**/
-function unique2(){
+/*function unique2(){
     var arr1 =[1,2,2,2,3,3,3,4,5,6],
         arr2 = [];
     for(var i = 0,len = arr1.length; i< len; i++){
@@ -339,7 +338,7 @@ function unique2(){
         }
     }
     console.log(arr2); // 1,2,3,4,5,6
-}
+}*/
 
 
 /**清除字符串前后的空格**/
