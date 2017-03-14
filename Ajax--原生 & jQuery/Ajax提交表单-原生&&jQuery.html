@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原生ajax方法提交表单数据</title>
+    <link rel="stylesheet" href="../publiScript%20&&%20publicCss/reset.css">
+    <link rel="stylesheet" href="../publiScript%20&&%20publicCss/publicStyle.css">
+    <script type="text/javascript" src="../publiScript%20&&%20publicCss/jquery-v3.1.0.js"></script>
+    <script type="text/javascript" src="../publiScript%20&&%20publicCss/publicScript.js"></script>
+</head>
+<body>
+    <div class="whiteBg">
+        <!--主体 main-->
+        <div class="wall100Per">
+            <div class="width1198 whiteBg marTop30 marginAuto marBot30 lightGreyBor">
+                <form action="post" class="myForm"> <!--用表单序列化，必须给input框添加name属性，radio的name值一样-->
+                    <div class="width580 marginAuto overflowHid">
+                        <!--手机验证-->
+                        <div class=" borBot wid100Per height60  font18 marTop25 marBot30 coralBg lineHei60 textCenter" >手机验证</div>
+
+                            <!--手机号码-->
+                            <div class="height75  wid90Per marLeft27 overflowHid">
+                                <div class="wid100Per">
+                                    <div class="fl wid25Per lineHei42 textRight marRight60 font14 marBot15">手机号码</div>
+                                    <div class="fl overflowHid ">
+                                        <p class="fl">
+                                            <input type="text" class="width248 textInd10 height38 borRadius4 lightGreyBor theInput phoNumInput" name="phoneNum">
+                                        </p>
+                                        <p class="clear"></p>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="overflowHid">
+                                    <p class="fl wid25Per textRight font14 height20 marRight60"></p>
+                                    <p class="fl">
+                                        <span class="redFont font12 wid100Per errorSpan phoNumErrorSpan"></span>
+                                    </p>
+                                    <p class="clear"></p>
+                                </div>
+                            </div>
+                            <!--手机号码-->
+
+                            <!--短信验证码-->
+                            <div class="height75 lineHei40 wid90Per marLeft27 marBot23 overflowHid">
+                                <div>
+                                    <p class="fl wid25Per lineHei42 textRight  marRight60 font14">短信验证码</p>
+                                    <p class="fl">
+                                        <input type="text" class="width142 textInd10 lineHei38 height38 borRadius4 lightGreyBor marRight8 theInput verInput" name="verificationCode">
+                                    </p>
+                                    <p class="fl">
+                                        <input type="button" class="fl lineHei38 orangeBorder borRadius4 orangeFont width100 textCenter cursorPoint whiteBg"
+                                               id="sendVerCodeButton" value="获取验证码">
+                                    </p>
+                                </div>
+                                <div>
+                                    <p class="fl wid25Per textRight font14 height20 marRight60"></p>
+                                    <p class="fl ">
+                                        <span class="redFont font12 lineHei20 fl wid100Per errorSpan verErrorSpan"></span>
+                                    </p>
+                                </div>
+                            </div>
+                            <!--短信验证码-->
+
+                        <!--手机验证-->
+                    </div>
+
+                    <div class="height42 marBot60">
+                        <p class="fl wid25Per marRight10Per height42"></p>
+                        <p class="fl rightEditorArea textRight">
+                            <a class="fl borRadius4 lineHei38 width178 textCenter cursorPoint font16 nextStepBut defaultNextStep">提交</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--主体 main-->
+    </div>
+
+    <script type="text/javascript">
+        //现在利用js原生的方法和表单序列化方法，从服务器获取数据，并把表单里需要提交的数据传回给后台
+        function serialize(form){
+            var parts = [];
+            var field = null;
+            var i, len, j, optLen, option, optValue;
+            for(i=0, len=form.elements.length; i<len; i++){
+                field = form.elements[i];
+                switch(field.type){
+                    case "select-one":
+                    case "select-multiple":
+                        if(field.name.length){
+                            for(j=0, optLen=field.options.length; j<optLen; j++){
+                                option = field.options[j];
+                                if(option.selected){
+                                    optValue = "";
+                                    if(option.hasAttribute){
+                                        optValue = (option.hasAttribute("value") ? option.value : option.text);
+                                    }else{
+                                        optValue = (option.attributes["value"].specified ? option.value : option.text);
+                                    }
+                                    parts.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(optValue));
+                                }
+                            }
+                        }
+                        break;
+
+                    case undefined : //字段集
+                    case "file" :    //文本输入
+                    case "submit" :  //提交按钮
+                    case "reset" :   //重置按钮
+                    case "button" :  //自定义按钮
+                        break;
+
+                    case "radio" :     //单选按钮
+                    case "checkbox" :  //复选框
+                        if(!field.checked){
+                            break;
+                        }
+                        /*执行默认操作*/
+
+                    default:
+                        //不包含没有名字的表单字段
+                        if(field.name.length){
+                            parts.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+                        }
+                }
+            }
+            return parts.join("&");
+        }
+
+        function createXHR(){
+            if(typeof XMLHttpRequest != "undefined"){
+                return new XMLHttpRequest();
+            }else if(window.ActiveXObject){
+                return new ActiveXObject("Microsoft XMLHTTP");
+            }
+        }
+        var xhr = createXHR();
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState == 4){
+                if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304){
+                    console.log(xhr.responseText); //这里只有当xhr.send()执行之后，才会触发
+                }else{
+                    console.log("Request was unsuccessful:" + xhr.status);
+                }
+            }
+        };
+
+        xhr.open("post", "data.json", true);  //true 代表异步传输
+        xhr.setRequestHeader("Content-type", "application/x-www.form-urlencoded");
+        var btn = getClassName("defaultNextStep")[0];
+        var myForm = getClassName("myForm")[0];
+        EventUtil.addHandler(btn, "click", function(){
+            xhr.send(serialize(myForm));
+        });
+
+    </script>
+</body>
+</html>
